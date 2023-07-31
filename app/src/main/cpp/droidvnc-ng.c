@@ -28,6 +28,7 @@
 #define TAG "droidvnc-ng (native)"
 
 rfbScreenInfoPtr theScreen;
+jlong theScreenSize;
 jclass theInputService;
 jclass theMainService;
 JavaVM *theVM;
@@ -423,7 +424,8 @@ JNIEXPORT jboolean JNICALL Java_net_christianbeier_droidvnc_1ng_MainService_vncN
         return JNI_FALSE;
 
     oldfb = theScreen->frameBuffer;
-    newfb = calloc(width * height * 4, 1);
+    theScreenSize = width * height * 4;
+    newfb = calloc(theScreenSize, 1);
     if(!newfb) {
         __android_log_print(ANDROID_LOG_ERROR, TAG, "vncNewFramebuffer: failed allocating new framebuffer");
         return JNI_FALSE;
@@ -442,11 +444,11 @@ JNIEXPORT jboolean JNICALL Java_net_christianbeier_droidvnc_1ng_MainService_vncU
     void *cBuf = (*env)->GetDirectBufferAddress(env, buf);
     jlong bufSize = (*env)->GetDirectBufferCapacity(env, buf);
 
-    if(!theScreen || !theScreen->frameBuffer || !cBuf || bufSize < 0)
+    if(!theScreen || !theScreen->frameBuffer || !cBuf || bufSize < theScreenSize)
         return JNI_FALSE;
 
     double t0 = getTime();
-    memcpy(theScreen->frameBuffer, cBuf, bufSize);
+    memcpy(theScreen->frameBuffer, cBuf, theScreenSize);
     __android_log_print(ANDROID_LOG_DEBUG, TAG, "vncUpdateFramebuffer: copy took %.3f ms", (getTime()-t0)*1000);
 
     rfbMarkRectAsModified(theScreen, 0, 0, theScreen->width, theScreen->height);

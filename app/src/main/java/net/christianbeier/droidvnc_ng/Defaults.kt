@@ -56,6 +56,10 @@ class Defaults {
         private set
 
     @EncodeDefault
+    var removePadding = false
+        private set
+
+    @EncodeDefault
     var viewOnly = false
         private set
 
@@ -115,6 +119,7 @@ class Defaults {
             this.portRepeater = readDefault.portRepeater
             this.fileTransfer = readDefault.fileTransfer
             this.scaling = readDefault.scaling
+            this.removePadding = readDefault.removePadding
             this.viewOnly = readDefault.viewOnly
             this.showPointers = readDefault.showPointers
             this.password = readDefault.password

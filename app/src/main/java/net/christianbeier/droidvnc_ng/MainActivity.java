@@ -430,6 +430,14 @@ public class MainActivity extends AppCompatActivity {
             ed.apply();
         });
 
+        final SwitchMaterial removePadding = findViewById(R.id.settings_remove_padding);
+        removePadding.setChecked(prefs.getBoolean(Constants.PREFS_KEY_SETTINGS_REMOVE_PADDING, mDefaults.getRemovePadding()));
+        removePadding.setOnCheckedChangeListener((compoundButton, b) -> {
+            SharedPreferences.Editor ed = prefs.edit();
+            ed.putBoolean(Constants.PREFS_KEY_SETTINGS_REMOVE_PADDING, b);
+            ed.apply();
+        });
+
         final SwitchMaterial showPointers = findViewById(R.id.settings_show_pointers);
         showPointers.setChecked(prefs.getBoolean(Constants.PREFS_KEY_SETTINGS_SHOW_POINTERS, mDefaults.getShowPointers()));
         showPointers.setOnCheckedChangeListener((compoundButton, b) -> {
@@ -638,6 +646,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.settings_password).setEnabled(false);
         findViewById(R.id.settings_access_key).setEnabled(false);
         findViewById(R.id.settings_scaling).setEnabled(false);
+        findViewById(R.id.settings_remove_padding).setEnabled(false);
         findViewById(R.id.settings_view_only).setEnabled(false);
         findViewById(R.id.settings_file_transfer).setEnabled(false);
         findViewById(R.id.settings_show_pointers).setEnabled(false);
@@ -661,6 +670,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.settings_password).setEnabled(true);
         findViewById(R.id.settings_access_key).setEnabled(true);
         findViewById(R.id.settings_scaling).setEnabled(true);
+        findViewById(R.id.settings_remove_padding).setEnabled(true);
         findViewById(R.id.settings_view_only).setEnabled(true);
         findViewById(R.id.settings_file_transfer).setEnabled(true);
         if(!((SwitchMaterial)findViewById(R.id.settings_view_only)).isChecked()) {

@@ -92,6 +92,7 @@ An example `defaults.json` with completely new defaults (not all entries need to
     "portReverse": 5555,
     "portRepeater": 5556,
     "scaling": 0.7,
+    "removePadding": true,
     "viewOnly": false,
     "showPointers": true,
     "fileTransfer": true,
